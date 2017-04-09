@@ -7,11 +7,28 @@ from sqlalchemy import create_engine
 Base = declarative_base()
 
 class Restaurant(Base):
+    @property
+    def serialize(self):
+        return {
+            'name': self.name,
+            'id': self.id,
+        }
+
     __tablename__ = 'restaurant'
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
 
 class MenuItem(Base):
+    @property
+    def serialize(self):
+        return {
+            'name': self.name,
+            'description': self.description,
+            'id': self.id,
+            'price': self.price,
+            'course': self.course,
+        }
+
     __tablename__ = 'menu_item'
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)

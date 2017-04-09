@@ -104,7 +104,11 @@ class webserverHandler(BaseHTTPRequestHandler):
             if confirmed:
                 session.delete(restaurant)
                 session.commit()
-                output += "<br /><h2>The restaurant {0} named '{1}' has been deleted</h2>".format(restaurant.id,cgi.escape(restaurant.name))
+                session.close()
+                self.send_response(301)
+                self.send_header('Location','/restaurants')
+                self.end_headers()
+                return
             else:
                 output += "<br /><h2>The restaurant {0} named '{1}' has NOT been deleted, because the deletion was not confirmed</h2>".format(restaurant.id,cgi.escape(restaurant.name))
         session.close()

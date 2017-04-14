@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles.css')}}" /> 
+    </head>
+    <body>
+        <div class="pane">
+            <div class="header">
+                <h1>The best local restaurants</h1>
+            </div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flash">
+                <ul>
+                    {% for message in messages %}
+                    <li><strong>{{message}}</strong></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endwith %}
+            {% if restaurants|length()==0 %}
+                <p class="flash">No restaurants are defined.</p>
+            {% endif %}
+
+            {% for restaurant in restaurants %}
+                <div class="row" >
+                    <a class="linkedName" href="{{url_for('restaurantMenu',restaurant_id=restaurant.id)}}">{{restaurant.name}}</a>
+                {% if isAdmin %}
+                <div class="sameRowLink">
+                    <a href="{{url_for('editRestaurant',restaurant_id=restaurant.id)}}">Edit</a>
+                    <a href="{{url_for('deleteRestaurant',restaurant_id=restaurant.id)}}">Delete</a>
+                </div>
+                {% endif %}
+                </div>
+            {% endfor %}
+            {% if isAdmin %}
+            <div class="row">
+                <a class="sameRowLink" href="{{url_for('newRestaurant')}}">Add a new restaurant</a>
+            </div>
+            {% endif %}
+        </div>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        {% if isAdmin %}
+        <a href="{{url_for('restaurantList')}}?isAdmin=0">Leave Admin Mode</a>
+        {% else %}        
+        <a href="{{url_for('restaurantList')}}?isAdmin=1">Enter Admin Mode</a>
+        {% endif %}
+    </body>
+</html>

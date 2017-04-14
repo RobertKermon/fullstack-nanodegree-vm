@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles.css')}}" /> 
+    </head>
+    <body>
+        <div class="pane">
+            <div class="header">
+                <h1>New restaurant</h1>
+            </div>
+            <form action="{{url_for('newRestaurant')}}" method="POST">
+                <p>Name: <input type="text" name="name" size="30" /></p>
+                <input type="submit" name="submit" value="Create" />
+                <a href="{{url_for('restaurantList')}}">Cancel</a>
+            </form>
+        </div>
+    </body>
+</html>

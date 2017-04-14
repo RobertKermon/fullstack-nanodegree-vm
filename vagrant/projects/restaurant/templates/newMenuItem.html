@@ -8,7 +8,15 @@
                 <h1>New menu item for {{restaurant.name}}</h1>
             </div>
             <form action="{{url_for('newMenuItem',restaurant_id=restaurant.id)}}" method="POST">
-                <p>Name: <input type="text" name="name" size="30" /></p>
+                <p>Name: <input type="text" name="name" size="30" maxlength="80" /></p>
+                <p>Price: <input type="text" name="price" size="10" maxlength="8" /></p>
+                <p>Course: <select name="course" >
+                    <option value="Appetizer">Appetizer</option>
+                    <option value="Beverage">Beverage</option>
+                    <option value="Desert">Desert</option>
+                    <option value="Entree">Entree</option>
+                </select></p>
+                <p>Description: <input type="text" name="description" size="50" maxlength="250" /></p>
                 <input type="submit" name="submit" value="Create" />
                 <a href="{{url_for('restaurantMenu',restaurant_id=restaurant.id)}}">Cancel</a>
             </form>

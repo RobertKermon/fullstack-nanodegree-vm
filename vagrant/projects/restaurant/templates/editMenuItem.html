@@ -8,7 +8,15 @@
                 <h1>Edit menu item for {{restaurant.name}}</h1>
             </div>
             <form action="{{url_for('editMenuItem',menu_id=item.id,restaurant_id=restaurant.id)}}" method="POST">
-                <p>Name: <input type="text" name="name" size="30" value="{{item.name}}" /></p>
+                <p>Name: <input type="text" name="name" maxlength="80" size="30" value="{{item.name}}" /></p>
+                <p>Price: <input type="text" name="price" maxlength="8" size="10" value="{{item.price}}" /></p>
+                <p>Course: <select name="course" >
+                    <option value="Appetizer" {% if "Appetizer"==item.course %}selected{% endif %}>Appetizer</option>
+                    <option value="Beverage" {% if "Beverage"==item.course %}selected{% endif %}>Beverage</option>
+                    <option value="Desert" {% if "Desert"==item.course %}selected{% endif %}>Desert</option>
+                    <option value="Entree" {% if "Entree"==item.course %}selected{% endif %}>Entree</option>
+                </select></p>
+                <p>Description: <input type="text" name="description" maxlength="250" size="50" value="{{item.description}}"/></p>
                 <input type="submit" name="submit" value="Edit" />
                 <a href="{{url_for('restaurantMenu',restaurant_id=restaurant.id)}}">Cancel</a>
             </form>

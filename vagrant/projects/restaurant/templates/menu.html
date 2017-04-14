@@ -19,17 +19,30 @@
         </div>
         {% endif %}
         {% endwith %}
+        {% if items|length==0 %}
+            <p class="flash">No menu items are defined.</p>
+        {% endif %}
         {% for item in items %}
+        <div>
             <p class="name">{{item.name}}</p>
             <p class="price">{{item.price}}</p>
-            <p class="description">{{item.description}}</p>
+            <p class="description">{% if item.course %}{{item.course}} - {% endif %}{{item.description}}</p>
+            {% if isAdmin %}
             <p class="editdeletepane">
                 <a href="{{url_for('editMenuItem',restaurant_id=item.restaurant_id, menu_id=item.id)}}">Edit</a>
                 <a href="{{url_for('deleteMenuItem',restaurant_id=item.restaurant_id, menu_id=item.id)}}">Delete</a>
+            {% endif %}
             </p>
-        </tr>
+        </div>
         {% endfor %}
-        <a href="{{url_for('newMenuItem',restaurant_id=restaurant.id)}}">Add a new menu item</a>
+            {% if isAdmin %}
+            <div class="row">
+                <a class="sameRowLink" href="{{url_for('newMenuItem',restaurant_id=restaurant.id)}}">Add a new menu item</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <a href="{{url_for('restaurantList')}}">Return to restaurant list</a>
         </div>
     </body>
 </html>
